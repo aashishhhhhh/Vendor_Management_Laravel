@@ -13,12 +13,22 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
+  public function showTestTransaction(Request $request)
+  {
+    echo $request->from;
+    echo $request->to;
+    echo $request->user;
+    $users= User::whereHas('roles', function($query){
+      $query->where('role_users.role_id','2');
+    })->get();
+    return view('transaction-form',['users'=>$users,'user'=>$request->user,'from'=>$request->from,'to'=>$request->to]);
+  }
     public function filterTransaction()
     {
         $users= User::whereHas('roles', function($query){
-            $query->where('role_users.role_id','2');
+            $query->where('role_users.role_id','2');  
         })->get();
-        return view('transaction-form',['user'=>$users]);
+        return view('transaction-form',['users'=>$users]);
     }
     public function showTransaction(Request $request)
     {

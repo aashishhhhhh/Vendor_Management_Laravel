@@ -91,6 +91,7 @@ class UserController extends Controller
            $data= User::whereHas('roles', function($query){
                $query->where('role_users.role_id','2');
            })->get();
+        //    dd('ok');
            return view('user-list',['datas'=>$data]);
        }
        else{
